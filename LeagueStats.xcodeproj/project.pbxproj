@@ -16,6 +16,7 @@
 		779B9A6F28DDD5BD00117291 /* Summoner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A6E28DDD5BD00117291 /* Summoner.swift */; };
 		779B9A7128DDD7F000117291 /* SummonerJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A7028DDD7F000117291 /* SummonerJSON.swift */; };
 		779B9A7328DDD85F00117291 /* SummonerMenager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A7228DDD85F00117291 /* SummonerMenager.swift */; };
+		779B9A7528DE043300117291 /* SummonerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A7428DE043300117291 /* SummonerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		779B9A6E28DDD5BD00117291 /* Summoner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summoner.swift; sourceTree = "<group>"; };
 		779B9A7028DDD7F000117291 /* SummonerJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerJSON.swift; sourceTree = "<group>"; };
 		779B9A7228DDD85F00117291 /* SummonerMenager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerMenager.swift; sourceTree = "<group>"; };
+		779B9A7428DE043300117291 /* SummonerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				779B9A5B28DDD51000117291 /* ViewController.swift */,
+				779B9A7428DE043300117291 /* SummonerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				779B9A5C28DDD51000117291 /* ViewController.swift in Sources */,
 				779B9A7128DDD7F000117291 /* SummonerJSON.swift in Sources */,
 				779B9A5828DDD51000117291 /* AppDelegate.swift in Sources */,
+				779B9A7528DE043300117291 /* SummonerViewController.swift in Sources */,
 				779B9A5A28DDD51000117291 /* SceneDelegate.swift in Sources */,
 				779B9A6F28DDD5BD00117291 /* Summoner.swift in Sources */,
 				779B9A7328DDD85F00117291 /* SummonerMenager.swift in Sources */,

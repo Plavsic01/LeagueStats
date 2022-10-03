@@ -13,8 +13,6 @@ import UIKit
 struct Match {
     let gameCreation:Int
     let gameDuration:Int
-    let gameMode:String
-    let mapId:Int
     let summoner:Summoner
     let participants:[Participant]
     
@@ -35,6 +33,24 @@ struct Match {
     }
     
 
+}
+
+struct Participant {
+    let summonerName:String
+    let champLevel:Int
+    let championName:String
+    let kills:Int
+    let deaths:Int
+    let lane:String
+    let goldEarned:Int
     
+    let item0:Int
+    let item1:Int
+    let item2:Int
+    let item3:Int
+    let item4:Int
+    let item5:Int
+    let item6:Int // ward
     
+    let win:Bool
 }

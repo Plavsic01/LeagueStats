@@ -18,9 +18,7 @@ class SummonerViewController: UIViewController {
     private var summonerManager = SummonerMenager()
     private var matchManager = MatchMananger()
     
-
     
-    private var items:[UIImage] = []
     private var matchArray:[Match] = []
 
     var searchResult:String?
@@ -38,14 +36,10 @@ class SummonerViewController: UIViewController {
     
     }
     
-    
-
-    
-    
-    
-
+   
 }
 
+// MARK: - TableViewDelegate and TableViewDataSource
 
 extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
     
@@ -69,17 +63,19 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
          */
         
         let sortedArray =  matchArray.sorted(by:{$0.gameCreation > $1.gameCreation})
+
         
         // Download and display item images from every match played
-            
+        
+        // If match is won display background color -> Blue else -> Red
         if sortedArray[indexPath.section].participant.win {
             cell.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
-            
+
         }else{
             cell.backgroundColor = UIColor.red.withAlphaComponent(0.5)
         }
         
-    
+        // Fetch items with Kingfisher and display them into table view
         
         cell.image1.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item0).png"))
         cell.image2.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item1).png"))
@@ -88,6 +84,8 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
         cell.image5.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item4).png"))
         cell.image6.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item5).png"))
         cell.image7.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item6).png"))
+
+        // Fetch champion icon with Kingfisher and display into table view
         
         cell.championIcon.kf.setImage(with: URL(string:"\(K.summonerIconURL)\(sortedArray[indexPath.section].participant.championName).png"))
 
@@ -104,11 +102,14 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sortedArray =  matchArray.sorted(by:{$0.gameCreation > $1.gameCreation})
+        
         print(sortedArray[indexPath.section].participant.championName)
     }
     
 }
 
+
+// MARK: - SummonerManagerDelegate
 
 extension SummonerViewController:SummonerMenagerDelegate {
     
@@ -127,38 +128,29 @@ extension SummonerViewController:SummonerMenagerDelegate {
 
     func didUpdateData(_ summonerMenager: SummonerMenager, summoner: Summoner) {
 
-        // Fetch Match ids
+
+        // Fetch matches and append them into matchArray and reload table view
         
-        matchManager.fetchMatchArray(puuid:summoner.puuid) { matchIds in
-            for id in matchIds {
-        
-                // Fetch Match data by match Id
-
-                self.matchManager.fetchMatchData(matchId: id,summoner: summoner) { match in
-
-                        DispatchQueue.main.async {
-                            self.matchArray.append(match)
-                            self.tableView.reloadData()
-
-                        }
-                    }
-                    
-
-                }
+        matchManager.fetchMatches(summoner:summoner,count: 5) { match in
+            DispatchQueue.main.async {
+                self.matchArray.append(match)
+                self.tableView.reloadData()
             }
-            
-            fetchSummonerIcon(summoner: summoner)
         }
         
-        
-        
         // Fetch Summoner icon
+        
+        fetchSummonerIcon(summoner: summoner)
+        
+    }
+        
+        
     
     func didGetError(_ summonerMenager: SummonerMenager, error: Error) {
         print(error) // this is for now
     }
     
-    }
+}
 
     
 

@@ -6,108 +6,89 @@
 //
 
 import Foundation
-
+import Alamofire
+import SwiftyJSON
 
 struct MatchMananger {
 
     
-    // MARK: - Fetch array of matchIds
-    
-    func fetchMatchArray(puuid:String,completionHandler:@escaping ([String]) -> Void) {
-        let urlString = "\(K.fetchMatchesURL)\(puuid)/ids?start=0&count=20&api_key=\(K.api_key)"
-        if let url = URL(string: urlString) {
-            
-            let session = URLSession.shared
-            
-            let request = URLRequest(url: url)
-            
-            let dataTask = session.dataTask(with: request) { data, _, error in
-                if let safeData = data {
-                    let results = decodeMatchArray(data: safeData)
-                    completionHandler(results)
-                }else {
-                    print(error!.localizedDescription)
-                }
-            }
-            
-            dataTask.resume()
-        }
-    }
-    
-    
-    
-    
-    // MARK: - Decode data array of match Ids
-    
-    private func decodeMatchArray(data:Data) -> [String]{
-        do{
-            let matchIds = try JSONSerialization.jsonObject(with: data) as! [String]
-            return matchIds
+    func fetchMatches(summoner:Summoner,count:Int,completionHandler:@escaping(Match) -> Void){
+        
+        let url = URL(string: "\(K.fetchMatchesURL)\(summoner.puuid)/ids?start=0&count=\(count)&api_key=\(K.api_key)")!
+                      
+        AF.request(url).validate().responseData { data in
+            if let safeData = data.data {
+                do {
+                    let json = try JSON(data: safeData)
 
-        }catch {
-            print(error.localizedDescription)
-            return []
+                    for i in 0..<count {
+                        
+                        fetchMatch(summoner:summoner,matchId: json[i].rawString()!) { match in
+                            completionHandler(match)
+                        }
+
+                    }
+                }catch {
+                    print(error.localizedDescription)
+                }
+                
+            }
         }
+        
         
     }
     
     
-    
-    
-    
-    
-    // MARK: - Fetch data for specific match by matchId
-    
-    func fetchMatchData(matchId:String,summoner:Summoner,completionHandler:@escaping (Match) -> Void) {
+    private func fetchMatch(summoner:Summoner,matchId:String,completionHandler:@escaping(Match) -> Void){
         
+        let url = URL(string:"\(K.matchURL)\(matchId)?api_key=\(K.api_key)")!
         
-        let urlString = "\(K.matchURL)\(matchId)?api_key=\(K.api_key)"
-        
-        
-        if let url = URL(string: urlString) {
+        AF.request(url).validate().responseData { match in
+            if let safeData = match.data {
+                do {
             
-            let session = URLSession.shared
-            
-            let request = URLRequest(url: url)
-            
-            let dataTask = session.dataTask(with: request) { data, _, error in
-                if let safeData = data {
-                    let match = decodeMatchData(summoner:summoner,data:safeData)!
-                    completionHandler(match)
+                    var participants:[Participant] = []
                     
-                }else {
-                    print(error!.localizedDescription)
+                    let json = try JSON(data: safeData)
+                    let gameCreation = json["info"]["gameCreation"].rawValue as! Int
+                    let gameDuration = json["info"]["gameDuration"].rawValue as! Int
+                    
+                    for participant in json["info"]["participants"] {
+                        
+                        let summonerName = participant.1["summonerName"].rawString()!
+                        let champLevel = participant.1["champLevel"].rawValue as! Int
+                        let championName = participant.1["championName"].rawString()!
+                        
+                        let kills = participant.1["kills"].rawValue as! Int
+                        let deaths = participant.1["deaths"].rawValue as! Int
+                        let lane = participant.1["lane"].rawString()!
+                        let goldEarned = participant.1["goldEarned"].rawValue as! Int
+                        
+                        let item0 = participant.1["item0"].rawValue as! Int
+                        let item1 = participant.1["item1"].rawValue as! Int
+                        let item2 = participant.1["item2"].rawValue as! Int
+                        let item3 = participant.1["item3"].rawValue as! Int
+                        let item4 = participant.1["item4"].rawValue as! Int
+                        let item5 = participant.1["item5"].rawValue as! Int
+                        let item6 = participant.1["item6"].rawValue as! Int
+                        
+                        let win = participant.1["win"].rawValue as! Bool
+                        
+                        let participant = Participant(summonerName: summonerName, champLevel: champLevel, championName: championName, kills: kills, deaths: deaths, lane: lane, goldEarned: goldEarned, item0: item0, item1: item1, item2: item2, item3: item3, item4: item4, item5: item5, item6: item6, win: win)
+                        
+                        participants.append(participant)
+                    }
+                    
+                    let match = Match(gameCreation:gameCreation, gameDuration: gameDuration, summoner:summoner,participants: participants)
+                    completionHandler(match)
+                }catch {
+                    print(error.localizedDescription)
                 }
             }
-            
-            dataTask.resume()
-        }
-        
-        
-    }
-    
-    
-    
-    
-    // MARK: - Decode specific match data
-    
-    private func decodeMatchData(summoner:Summoner,data:Data) -> Match?{
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        do {
-            print(data)
-            let decodedData = try decoder.decode(MatchJSON.self, from: data)
-            
-            let match = Match(gameCreation: decodedData.info.gameCreation,gameDuration:decodedData.info.gameDuration,gameMode: decodedData.info.gameMode, mapId: decodedData.info.mapId, summoner: summoner, participants: decodedData.info.participants)
-        
-            return match
-            
-        }catch {
-            print(error.localizedDescription)
-
-            return nil
         }
     }
+    
+  
 
     
     

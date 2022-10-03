@@ -21,20 +21,5 @@ struct Summoner {
     }
     let summonerLevel:Int
 
-    
-    
-    // MARK: - Fetch Summoner Icon
-    
-//    func fetchSummonerIcon(completionHandler:@escaping (UIImage) -> Void)  {
-//        let url = URL(string: profileIconUrl)!
-//
-//        DispatchQueue.global().async {
-//            let data = try? Data(contentsOf: url)
-//            let image = UIImage(data: data!)!
-//            completionHandler(image)
-//        }
-//
-//    }
-    
-    
+        
 }

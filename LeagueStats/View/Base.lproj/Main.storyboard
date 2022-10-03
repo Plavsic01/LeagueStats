@@ -82,27 +82,59 @@
                                             <constraint firstAttribute="width" secondItem="Ahk-Cd-0lr" secondAttribute="height" multiplier="1:1" id="sV1-U5-QUG"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeA-rM-VIc">
-                                        <rect key="frame" x="207" y="83.5" width="167" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="23"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GRe-eY-Wen">
+                                        <rect key="frame" x="207" y="78.5" width="167" height="10"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeA-rM-VIc">
+                                                <rect key="frame" x="0.0" y="0.0" width="167" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="afh-Ud-Cuq">
+                                                <rect key="frame" x="0.0" y="10" width="167" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LfO-e5-uAI">
+                                <rect key="frame" x="0.0" y="346" width="414" height="516"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="matchCell" id="p7i-b2-xb6" customClass="MatchCustomCell" customModule="LeagueStats" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="49.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p7i-b2-xb6" id="8Bj-Ga-8Cf">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jVl-rG-I8V"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="LfO-e5-uAI" firstAttribute="leading" secondItem="jVl-rG-I8V" secondAttribute="leading" id="Fx6-aE-LeF"/>
                             <constraint firstItem="MIr-cD-18K" firstAttribute="top" secondItem="jVl-rG-I8V" secondAttribute="top" constant="50" id="IQe-fq-zeF"/>
                             <constraint firstItem="jVl-rG-I8V" firstAttribute="trailing" secondItem="MIr-cD-18K" secondAttribute="trailing" constant="20" id="OlC-D0-A3d"/>
+                            <constraint firstItem="LfO-e5-uAI" firstAttribute="centerX" secondItem="MIr-cD-18K" secondAttribute="centerX" id="Uan-Rl-dSv"/>
+                            <constraint firstItem="LfO-e5-uAI" firstAttribute="bottom" secondItem="jVl-rG-I8V" secondAttribute="bottom" id="lua-h8-G4a"/>
                             <constraint firstItem="MIr-cD-18K" firstAttribute="leading" secondItem="jVl-rG-I8V" secondAttribute="leading" constant="20" id="nC1-G9-219"/>
+                            <constraint firstItem="LfO-e5-uAI" firstAttribute="top" secondItem="MIr-cD-18K" secondAttribute="bottom" constant="41" id="zUt-sI-bu3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PBc-wP-M4W"/>
                     <connections>
                         <outlet property="summonerIcon" destination="Ahk-Cd-0lr" id="lcu-AH-KRd"/>
+                        <outlet property="summonerLevelLabel" destination="afh-Ud-Cuq" id="oMh-a6-WTO"/>
                         <outlet property="summonerNameLabel" destination="SeA-rM-VIc" id="DRw-Ei-9yG"/>
+                        <outlet property="tableView" destination="LfO-e5-uAI" id="SeW-45-4ae"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bqy-ag-Fnh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

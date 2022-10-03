@@ -15,9 +15,6 @@ protocol SummonerMenagerDelegate {
 
 struct SummonerMenager {
     
-    var apiKey = "RGAPI-3d3dfa11-44a3-4cb9-8086-4c9f28e2e55e"
-    var url = "https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name"
-    
     var delegate:SummonerMenagerDelegate?
     
     
@@ -25,7 +22,7 @@ struct SummonerMenager {
     
     func fetchSummonerData(summonerName:String) {
         
-        let urlString = "\(url)/\(summonerName)?api_key=\(apiKey)"
+        let urlString = "\(K.summonerURL)/\(summonerName)?api_key=\(K.api_key)"
 
         if let url = URL(string: urlString) {
             
@@ -59,7 +56,7 @@ struct SummonerMenager {
         do {
             let decodedData = try decoder.decode(SummonerJSON.self, from: jsonData)
 
-            return Summoner(id:decodedData.id, accountId:decodedData.accountId, puuid: decodedData.puuid, name: decodedData.name, profileIconId: decodedData.profileIconId, revisionDate: decodedData.revisionDate, summonerLevel: decodedData.summonerLevel)
+            return Summoner(id:decodedData.id, accountId:decodedData.accountId, puuid: decodedData.puuid, name: decodedData.name, profileIconId: decodedData.profileIconId, summonerLevel: decodedData.summonerLevel)
             
         }catch {
             return nil

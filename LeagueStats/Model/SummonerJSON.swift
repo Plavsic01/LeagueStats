@@ -14,7 +14,6 @@ struct SummonerJSON:Codable{
     let puuid:String
     let name:String
     let profileIconId:Int
-    let revisionDate:Int
     let summonerLevel:Int
     
 }

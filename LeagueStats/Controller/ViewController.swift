@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         inputField.attributedPlaceholder = NSAttributedString(string: "Enter your Summoner Name", attributes: [NSAttributedString.Key.foregroundColor:UIColor.white.withAlphaComponent(0.6)])
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         inputField.delegate = self
@@ -38,7 +39,7 @@ class ViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "searchSegue" {
+        if segue.identifier == K.summonerViewControllerSegue {
             let destionationVC = segue.destination as! SummonerViewController
             destionationVC.searchResult = inputField.text
         }

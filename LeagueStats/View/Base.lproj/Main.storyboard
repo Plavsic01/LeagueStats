@@ -135,11 +135,53 @@
                         <outlet property="summonerLevelLabel" destination="afh-Ud-Cuq" id="oMh-a6-WTO"/>
                         <outlet property="summonerNameLabel" destination="SeA-rM-VIc" id="DRw-Ei-9yG"/>
                         <outlet property="tableView" destination="LfO-e5-uAI" id="SeW-45-4ae"/>
+                        <segue destination="mny-12-7xS" kind="show" identifier="showDetails" id="dJq-sk-9Di"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bqy-ag-Fnh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1621.7391304347827" y="123.21428571428571"/>
+            <point key="canvasLocation" x="1577" y="124"/>
+        </scene>
+        <!--Match Details View Controller-->
+        <scene sceneID="udZ-lZ-oBQ">
+            <objects>
+                <viewController id="mny-12-7xS" customClass="MatchDetailsViewController" customModule="LeagueStats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7og-5I-Js8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="150" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pLL-2q-7KP">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Vjv-TP-mGf">
+                                        <rect key="frame" x="0.0" y="49.5" width="414" height="150"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vjv-TP-mGf" id="AUN-HN-yav">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OzA-Zr-AiX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OzA-Zr-AiX" firstAttribute="bottom" secondItem="pLL-2q-7KP" secondAttribute="bottom" id="NiC-vj-O4U"/>
+                            <constraint firstItem="OzA-Zr-AiX" firstAttribute="trailing" secondItem="pLL-2q-7KP" secondAttribute="trailing" id="Njz-IL-Y4T"/>
+                            <constraint firstItem="pLL-2q-7KP" firstAttribute="leading" secondItem="OzA-Zr-AiX" secondAttribute="leading" id="im0-B0-y8k"/>
+                            <constraint firstItem="pLL-2q-7KP" firstAttribute="top" secondItem="OzA-Zr-AiX" secondAttribute="top" id="x9F-QA-7Kd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Nwu-9q-GiU"/>
+                    <connections>
+                        <outlet property="tableView" destination="pLL-2q-7KP" id="UdT-RX-GuI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YZN-hk-hKt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2416" y="124"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5dT-yJ-8Vb">

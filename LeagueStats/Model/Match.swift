@@ -41,8 +41,9 @@ struct Participant {
     let championName:String
     let kills:Int
     let deaths:Int
-    let lane:String
+    let assists:Int
     let goldEarned:Int
+    let totalMinionsKilled:Int
     
     let item0:Int
     let item1:Int

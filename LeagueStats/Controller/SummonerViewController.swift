@@ -18,13 +18,17 @@ class SummonerViewController: UIViewController {
     private var summonerManager = SummonerMenager()
     private var matchManager = MatchMananger()
     
+    let refreshControl = UIRefreshControl()
     
     private var matchArray:[Match] = []
 
     var searchResult:String?
+    var matchDetails:Match?
     
     
-    
+    deinit {
+        print("oslobodjena memorija za klasu SummonerViewController")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +37,30 @@ class SummonerViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         summonerManager.fetchSummonerData(summonerName: searchResult!)
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     
     }
     
+    @objc func refresh(_ sender:AnyObject) {
+
+        DispatchQueue.main.async {
+            self.matchArray.removeAll()
+            self.tableView.reloadData()
+        }
+        summonerManager.fetchSummonerData(summonerName: searchResult!)
+        refreshControl.endRefreshing()
+    }
+    
    
+    // Sends specific match selected from table view to MatchDetailsViewController
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destionationVC = segue.destination as? MatchDetailsViewController {
+            destionationVC.match = matchDetails
+        }
+    }
+    
 }
 
 // MARK: - TableViewDelegate and TableViewDataSource
@@ -69,10 +93,10 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
         
         // If match is won display background color -> Blue else -> Red
         if sortedArray[indexPath.section].participant.win {
-            cell.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
+            cell.backgroundColor = UIColor(named: "Victory")
 
         }else{
-            cell.backgroundColor = UIColor.red.withAlphaComponent(0.5)
+            cell.backgroundColor = UIColor(named: "Defeat")
         }
         
         // Fetch items with Kingfisher and display them into table view
@@ -102,8 +126,8 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sortedArray =  matchArray.sorted(by:{$0.gameCreation > $1.gameCreation})
-        
-        print(sortedArray[indexPath.section].participant.championName)
+        matchDetails = sortedArray[indexPath.section]
+        performSegue(withIdentifier: K.matchDetailsViewControllerSegue, sender: self)
     }
     
 }
@@ -131,10 +155,10 @@ extension SummonerViewController:SummonerMenagerDelegate {
 
         // Fetch matches and append them into matchArray and reload table view
         
-        matchManager.fetchMatches(summoner:summoner,count: 5) { match in
+        matchManager.fetchMatches(summoner:summoner,count: 20) { [weak self] match in
             DispatchQueue.main.async {
-                self.matchArray.append(match)
-                self.tableView.reloadData()
+                self?.matchArray.append(match)
+                self?.tableView.reloadData()
             }
         }
         

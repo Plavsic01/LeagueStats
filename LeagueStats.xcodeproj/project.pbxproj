@@ -15,6 +15,9 @@
 		774444CE28E1F5090014BEA5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 774444CD28E1F5090014BEA5 /* Kingfisher */; };
 		774444D128EB04810014BEA5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 774444D028EB04810014BEA5 /* Alamofire */; };
 		774444D428EB06DD0014BEA5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 774444D328EB06DD0014BEA5 /* SwiftyJSON */; };
+		774444D628EEFBCE0014BEA5 /* MatchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774444D528EEFBCE0014BEA5 /* MatchDetailsViewController.swift */; };
+		774444D928EF00700014BEA5 /* MatchDetailsCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774444D728EF00700014BEA5 /* MatchDetailsCustomCell.swift */; };
+		774444DA28EF00700014BEA5 /* MatchDetailsCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774444D828EF00700014BEA5 /* MatchDetailsCustomCell.xib */; };
 		779B9A5828DDD51000117291 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A5728DDD51000117291 /* AppDelegate.swift */; };
 		779B9A5A28DDD51000117291 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A5928DDD51000117291 /* SceneDelegate.swift */; };
 		779B9A5C28DDD51000117291 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A5B28DDD51000117291 /* ViewController.swift */; };
@@ -33,6 +36,9 @@
 		7715980F28DF7232005EBECB /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		7715981128DF7927005EBECB /* MatchCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCustomCell.swift; sourceTree = "<group>"; };
 		7715981228DF7927005EBECB /* MatchCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchCustomCell.xib; sourceTree = "<group>"; };
+		774444D528EEFBCE0014BEA5 /* MatchDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailsViewController.swift; sourceTree = "<group>"; };
+		774444D728EF00700014BEA5 /* MatchDetailsCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailsCustomCell.swift; sourceTree = "<group>"; };
+		774444D828EF00700014BEA5 /* MatchDetailsCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchDetailsCustomCell.xib; sourceTree = "<group>"; };
 		779B9A5428DDD51000117291 /* LeagueStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		779B9A5728DDD51000117291 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		779B9A5928DDD51000117291 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +117,8 @@
 				779B9A5D28DDD51000117291 /* Main.storyboard */,
 				7715981128DF7927005EBECB /* MatchCustomCell.swift */,
 				7715981228DF7927005EBECB /* MatchCustomCell.xib */,
+				774444D728EF00700014BEA5 /* MatchDetailsCustomCell.swift */,
+				774444D828EF00700014BEA5 /* MatchDetailsCustomCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -120,6 +128,7 @@
 			children = (
 				779B9A5B28DDD51000117291 /* ViewController.swift */,
 				779B9A7428DE043300117291 /* SummonerViewController.swift */,
+				774444D528EEFBCE0014BEA5 /* MatchDetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -196,6 +205,7 @@
 				779B9A6428DDD51100117291 /* LaunchScreen.storyboard in Resources */,
 				779B9A6128DDD51100117291 /* Assets.xcassets in Resources */,
 				779B9A5F28DDD51000117291 /* Main.storyboard in Resources */,
+				774444DA28EF00700014BEA5 /* MatchDetailsCustomCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,8 +216,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				774444D928EF00700014BEA5 /* MatchDetailsCustomCell.swift in Sources */,
 				7715981328DF7927005EBECB /* MatchCustomCell.swift in Sources */,
 				779B9A5C28DDD51000117291 /* ViewController.swift in Sources */,
+				774444D628EEFBCE0014BEA5 /* MatchDetailsViewController.swift in Sources */,
 				779B9A7128DDD7F000117291 /* SummonerJSON.swift in Sources */,
 				779B9A5828DDD51000117291 /* AppDelegate.swift in Sources */,
 				779B9A7528DE043300117291 /* SummonerViewController.swift in Sources */,

@@ -8,14 +8,14 @@
 import Foundation
 
 
-protocol SummonerMenagerDelegate {
+protocol SummonerMenagerDelegate:AnyObject {
     func didUpdateData(_ summonerMenager:SummonerMenager,summoner:Summoner)
     func didGetError(_ summonerMenager:SummonerMenager,error:Error)
 }
 
 struct SummonerMenager {
     
-    var delegate:SummonerMenagerDelegate?
+    weak var delegate:SummonerMenagerDelegate?
     
     
     // MARK: - Fetch Summoner Data

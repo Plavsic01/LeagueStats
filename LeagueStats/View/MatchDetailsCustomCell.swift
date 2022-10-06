@@ -18,6 +18,8 @@ class MatchDetailsCustomCell: UITableViewCell {
     
     @IBOutlet weak var championIcon: UIImageView!
     
+    @IBOutlet weak var championLevel: UILabel!
+    
     @IBOutlet weak var item0: UIImageView!
     @IBOutlet weak var item1: UIImageView!
     @IBOutlet weak var item2: UIImageView!
@@ -26,6 +28,8 @@ class MatchDetailsCustomCell: UITableViewCell {
     @IBOutlet weak var item5: UIImageView!
     @IBOutlet weak var item6: UIImageView!
     
+    @IBOutlet weak var summonerSpell1: UIImageView!
+    @IBOutlet weak var summonerSpell2: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

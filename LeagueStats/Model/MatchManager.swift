@@ -66,9 +66,13 @@ struct MatchMananger {
                             let champLevel = participant.1["champLevel"].rawValue as! Int
                             let championName = participant.1["championName"].rawString()!
                             
+                            let summoner1Id = participant.1["summoner1Id"].rawValue as! Int
+                            let summoner2Id = participant.1["summoner2Id"].rawValue as! Int
+                            
                             let kills = participant.1["kills"].rawValue as! Int
                             let deaths = participant.1["deaths"].rawValue as! Int
                             let assists = participant.1["assists"].rawValue as! Int
+                            
                             let goldEarned = participant.1["goldEarned"].rawValue as! Int
                             var totalMinionsKilled = participant.1["totalMinionsKilled"].rawValue as! Int
                             let neutralMinionsKilled = participant.1["neutralMinionsKilled"].rawValue as! Int
@@ -85,7 +89,7 @@ struct MatchMananger {
                             
                             let win = participant.1["win"].rawValue as! Bool
                             
-                            let participant = Participant(summonerName: summonerName, champLevel: champLevel, championName: championName, kills: kills, deaths: deaths,assists: assists,goldEarned: goldEarned,totalMinionsKilled: totalMinionsKilled,item0: item0, item1: item1, item2: item2, item3: item3, item4: item4, item5: item5, item6: item6, win: win)
+                            let participant = Participant(summonerName: summonerName, champLevel: champLevel, championName: championName, kills: kills, deaths: deaths,assists: assists,goldEarned: goldEarned,totalMinionsKilled: totalMinionsKilled,summoner1Id: summoner1Id,summoner2Id: summoner2Id,item0: item0, item1: item1, item2: item2, item3: item3, item4: item4, item5: item5, item6: item6, win: win)
                             
                             participants.append(participant)
                         }

@@ -45,6 +45,17 @@ struct Participant {
     let goldEarned:Int
     let totalMinionsKilled:Int
     
+    let summoner1Id:Int // D key (summoner spell)
+    let summoner2Id:Int // F key (summoner spell)
+    
+    var summonerSpell1:String {
+       return summonerSpell(summonerSpellId:summoner1Id)
+    }
+    
+    var summonerSpell2:String {
+        return summonerSpell(summonerSpellId:summoner2Id)
+    }
+    
     let item0:Int
     let item1:Int
     let item2:Int
@@ -54,4 +65,43 @@ struct Participant {
     let item6:Int // ward
     
     let win:Bool
+}
+
+func summonerSpell(summonerSpellId:Int) -> String {
+    var summonerSpellName:String
+    switch(summonerSpellId) {
+    case 1:
+        summonerSpellName = "SummonerBoost"
+    case 3:
+        summonerSpellName = "SummonerExhaust"
+    case 4:
+        summonerSpellName = "SummonerFlash"
+    case 6:
+        summonerSpellName = "SummonerHaste"
+    case 7:
+        summonerSpellName = "SummonerHeal"
+    case 11:
+        summonerSpellName = "SummonerSmite"
+    case 12:
+        summonerSpellName = "SummonerTeleport"
+    case 13:
+        summonerSpellName = "SummonerMana"
+    case 14:
+        summonerSpellName = "SummonerDot"
+    case 21:
+        summonerSpellName = "SummonerBarrier"
+    case 30:
+        summonerSpellName = "SummonerPoroRecall"
+    case 31:
+        summonerSpellName = "SummonerPoroThrow"
+    case 32:
+        summonerSpellName = "SummonerSnowball"
+    case 39:
+        summonerSpellName = "SummonerSnowURFSnowball_Mark"
+    
+    default:
+        summonerSpellName = "Summoner_UltBookPlaceholder"
+    }
+        
+    return summonerSpellName
 }

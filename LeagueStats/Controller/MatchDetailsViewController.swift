@@ -85,7 +85,7 @@ extension MatchDetailsViewController:UITableViewDataSource {
                 
         cell.championIcon.kf.setImage(with: URL(string:"\(K.summonerIconURL)\(match!.participants[index].championName).png"))
         
-        
+        cell.championLevel.text = "\(match!.participants[index].champLevel)"
         
         cell.killsLabel.text = "\(match!.participants[index].kills)"
         cell.deathsLabel.text = "\(match!.participants[index].deaths)"
@@ -94,7 +94,8 @@ extension MatchDetailsViewController:UITableViewDataSource {
         cell.minionsKilled.text = "\(match!.participants[index].totalMinionsKilled)"
         cell.goldEarned.text = "\(match!.participants[index].goldEarned)"
             
-        
+        cell.summonerSpell1.kf.setImage(with: URL(string: "\(K.summonerSpellURL)\(match!.participants[index].summonerSpell1).png"))
+        cell.summonerSpell2.kf.setImage(with: URL(string: "\(K.summonerSpellURL)\(match!.participants[index].summonerSpell2).png"))
         
         
         return cell

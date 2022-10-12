@@ -13,6 +13,8 @@ import UIKit
 struct Match {
     let gameCreation:Int
     let gameDuration:Int
+    let gameStartTimestamp:Int
+    let gameEndTimestamp:Int
     let summoner:Summoner
     let participants:[Participant]
     

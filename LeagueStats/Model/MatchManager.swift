@@ -12,10 +12,11 @@ import SwiftyJSON
 struct MatchMananger {
 
     
-    func fetchMatches(summoner:Summoner,count:Int,completionHandler:@escaping(Match) -> Void){
+    func fetchMatches(summoner:Summoner,count:Int,completionHandler:@escaping(Match?,Int?) -> Void){
         
         let url = URL(string: "\(K.fetchMatchesURL)\(summoner.puuid)/ids?start=0&count=\(count)&api_key=\(K.api_key)")!
-                      
+    
+        
         AF.request(url).validate().responseData { data in
             if let safeData = data.data {
                 do {
@@ -23,10 +24,16 @@ struct MatchMananger {
 
                     for i in 0..<count {
                         
-                        fetchMatch(summoner:summoner,matchId: json[i].rawString()!) { match in
-                            completionHandler(match)
+                        fetchMatch(summoner:summoner,matchId: json[i].rawString()!) { match,statusCode in
+                            
+                            if statusCode == nil {
+                                completionHandler(match!,nil)
+                            }else {
+                                completionHandler(nil,statusCode)
+                            }
+                            
                         }
-
+                        
                     }
                 }catch {
                     print(error.localizedDescription)
@@ -39,9 +46,8 @@ struct MatchMananger {
         
     }
     
-//    ["status": ["message": Rate limit exceeded, "status_code": 429]]
     
-    private func fetchMatch(summoner:Summoner,matchId:String,completionHandler:@escaping(Match) -> Void){
+    private func fetchMatch(summoner:Summoner,matchId:String,completionHandler:@escaping(Match?,Int?) -> Void){
         
         let url = URL(string:"\(K.matchURL)\(matchId)?api_key=\(K.api_key)")!
         
@@ -59,6 +65,8 @@ struct MatchMananger {
                         
                         let gameCreation = json["info"]["gameCreation"].rawValue as! Int
                         let gameDuration = json["info"]["gameDuration"].rawValue as! Int
+                        let gameStartTimestamp = json["info"]["gameStartTimestamp"].rawValue as! Int
+                        let gameEndTimestamp = json["info"]["gameEndTimestamp"].rawValue as! Int
                         
                         for participant in json["info"]["participants"] {
                             
@@ -94,8 +102,8 @@ struct MatchMananger {
                             participants.append(participant)
                         }
                         
-                        let match = Match(gameCreation:gameCreation, gameDuration: gameDuration, summoner:summoner,participants: participants)
-                        completionHandler(match)
+                        let match = Match(gameCreation:gameCreation, gameDuration: gameDuration,gameStartTimestamp: gameStartTimestamp,gameEndTimestamp: gameEndTimestamp, summoner:summoner,participants: participants)
+                        completionHandler(match,nil)
                     } catch {
                         print(error.localizedDescription)
                         
@@ -103,16 +111,11 @@ struct MatchMananger {
                 }
                 
             } else {
-                print(match.response!.statusCode)
+                completionHandler(nil,match.response!.statusCode)
             }
             
         }
     }
-    
-  
-
-    
-    
     
     
 }

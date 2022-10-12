@@ -18,8 +18,20 @@ class MatchDetailsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName:K.detailMatchNibName, bundle:nil), forCellReuseIdentifier: K.detailMatchCellIdentifier)
-        // Do any additional setup after loading the view.
+
+    }
+    
+    func gameDuration(for differenceTime:Double) -> String {
+        let hours = differenceTime / 3600
+        let minutes = hours.truncatingRemainder(dividingBy: 1) * 60
+        let seconds = Int(minutes.truncatingRemainder(dividingBy: 1) * 60)
         
+        let roundedHours = Int(hours)
+        let roundedMinutes = Int(minutes)
+        let roundedSeconds = Int(seconds)
+
+
+        return "\(roundedHours):\(roundedMinutes):\(roundedSeconds)"
     }
 
 
@@ -27,6 +39,9 @@ class MatchDetailsViewController: UIViewController {
 
 
 extension MatchDetailsViewController:UITableViewDelegate {
+    
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -35,20 +50,49 @@ extension MatchDetailsViewController:UITableViewDelegate {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height:100))
         headerView.backgroundColor = UIColor(named: "HeaderTableViewColor")
         
-        let label = UILabel()
-        label.frame = CGRect.init(x: 10, y: 30, width: headerView.frame.width - 10, height: 20)
+        let team1Won = match!.participants[0].win
+        let team2Won = match!.participants[5].win
+
+        let time = Double((match!.gameEndTimestamp / 1000) - (match!.gameStartTimestamp / 1000)) // seconds
+        
+
+        //TODO: STAVITI OVAJ GAME DURATION U HEADER
+        
+        let gameDuration = gameDuration(for: time)
+        
+        print(gameDuration)
+        
+        
+        let teamLabel = UILabel()
+        teamLabel.font = UIFont(name: "Helvetica Neue", size: 23)
+        
+        teamLabel.frame = CGRect.init(x: 10, y: 30, width: headerView.frame.width - 10, height: 25)
         if section == 0 {
-            label.text = "TEAM 1"
-        }else {
-            label.text = "TEAM 2"
+            
+            if team1Won {
+                teamLabel.text = "TEAM 1 - Victory"
+                headerView.backgroundColor = UIColor(named: "Victory")
+            }else {
+                teamLabel.text = "TEAM 1 - Defeat"
+                headerView.backgroundColor = UIColor(named: "Defeat")
+            }
+            
+        } else {
+            if team2Won {
+                teamLabel.text = "TEAM 2 - Victory"
+                headerView.backgroundColor = UIColor(named: "Victory")
+            }else {
+                teamLabel.text = "TEAM 2 - Defeat"
+                headerView.backgroundColor = UIColor(named: "Defeat")
+            }
+            
         }
         
-        headerView.addSubview(label)
-        
-        
-        
+        headerView.addSubview(teamLabel)
+
         return headerView
     }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 100
@@ -64,6 +108,8 @@ extension MatchDetailsViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: K.detailMatchCellIdentifier, for: indexPath) as! MatchDetailsCustomCell
 
         var index:Int
@@ -92,7 +138,14 @@ extension MatchDetailsViewController:UITableViewDataSource {
         cell.assitsLabel.text = "\(match!.participants[index].assists)"
         
         cell.minionsKilled.text = "\(match!.participants[index].totalMinionsKilled)"
-        cell.goldEarned.text = "\(match!.participants[index].goldEarned)"
+        
+        let numFormatter = NumberFormatter()
+        numFormatter.numberStyle = .decimal
+        
+        let goldEarned = match!.participants[index].goldEarned
+        let goldEarnedFormatted = numFormatter.string(from: NSNumber(value:goldEarned))
+        
+        cell.goldEarned.text = "\(goldEarnedFormatted!)"
             
         cell.summonerSpell1.kf.setImage(with: URL(string: "\(K.summonerSpellURL)\(match!.participants[index].summonerSpell1).png"))
         cell.summonerSpell2.kf.setImage(with: URL(string: "\(K.summonerSpellURL)\(match!.participants[index].summonerSpell2).png"))

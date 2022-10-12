@@ -24,11 +24,8 @@ class SummonerViewController: UIViewController {
 
     var searchResult:String?
     var matchDetails:Match?
+    var errorOccured = false
     
-    
-    deinit {
-        print("oslobodjena memorija za klasu SummonerViewController")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +45,7 @@ class SummonerViewController: UIViewController {
             self.matchArray.removeAll()
             self.tableView.reloadData()
         }
+        self.errorOccured = false
         summonerManager.fetchSummonerData(summonerName: searchResult!)
         refreshControl.endRefreshing()
     }
@@ -92,12 +90,13 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
         // Download and display item images from every match played
         
         // If match is won display background color -> Blue else -> Red
-        if sortedArray[indexPath.section].participant.win {
-            cell.backgroundColor = UIColor(named: "Victory")
-
-        }else{
-            cell.backgroundColor = UIColor(named: "Defeat")
-        }
+        
+//        if sortedArray[indexPath.section].participant.win {
+//            cell.backgroundColor = UIColor(named: "Victory")
+//
+//        }else{
+//            cell.backgroundColor = UIColor(named: "Defeat")
+//        }
         
         // Fetch items with Kingfisher and display them into table view
         
@@ -152,14 +151,34 @@ extension SummonerViewController:SummonerMenagerDelegate {
 
     func didUpdateData(_ summonerMenager: SummonerMenager, summoner: Summoner) {
 
+        
+        
 
         // Fetch matches and append them into matchArray and reload table view
         
-        matchManager.fetchMatches(summoner:summoner,count: 20) { [weak self] match in
-            DispatchQueue.main.async {
-                self?.matchArray.append(match)
-                self?.tableView.reloadData()
+        matchManager.fetchMatches(summoner:summoner,count: 20) { [weak self] match,statusCode in
+            
+            if statusCode == nil {
+                DispatchQueue.main.async {
+                    self?.matchArray.append(match!)
+                    self?.tableView.reloadData()
+                }
+            }else {
+                
+                // If statement is here because we don't want repetition of same Alert Controller
+                // This closure loops 20 times but only once shows alert
+                
+                if !self!.errorOccured {
+                    let alert = UIAlertController(title: "Error \(statusCode!)", message: "Error occured, Please try in few minutes.", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.destructive))
+                    self?.present(alert, animated: true, completion: nil)
+                    
+                    self!.errorOccured = true
+                }
+                
+                    
             }
+            
         }
         
         // Fetch Summoner icon

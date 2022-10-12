@@ -18,6 +18,7 @@
 		774444D628EEFBCE0014BEA5 /* MatchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774444D528EEFBCE0014BEA5 /* MatchDetailsViewController.swift */; };
 		774444D928EF00700014BEA5 /* MatchDetailsCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774444D728EF00700014BEA5 /* MatchDetailsCustomCell.swift */; };
 		774444DA28EF00700014BEA5 /* MatchDetailsCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774444D828EF00700014BEA5 /* MatchDetailsCustomCell.xib */; };
+		77891A9D28F43D7100B5A1EF /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 77891A9C28F43D7100B5A1EF /* IQKeyboardManagerSwift */; };
 		779B9A5828DDD51000117291 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A5728DDD51000117291 /* AppDelegate.swift */; };
 		779B9A5A28DDD51000117291 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A5928DDD51000117291 /* SceneDelegate.swift */; };
 		779B9A5C28DDD51000117291 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A5B28DDD51000117291 /* ViewController.swift */; };
@@ -59,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				774444D428EB06DD0014BEA5 /* SwiftyJSON in Frameworks */,
+				77891A9D28F43D7100B5A1EF /* IQKeyboardManagerSwift in Frameworks */,
 				774444CE28E1F5090014BEA5 /* Kingfisher in Frameworks */,
 				774444D128EB04810014BEA5 /* Alamofire in Frameworks */,
 			);
@@ -153,6 +155,7 @@
 				774444CD28E1F5090014BEA5 /* Kingfisher */,
 				774444D028EB04810014BEA5 /* Alamofire */,
 				774444D328EB06DD0014BEA5 /* SwiftyJSON */,
+				77891A9C28F43D7100B5A1EF /* IQKeyboardManagerSwift */,
 			);
 			productName = LeagueStats;
 			productReference = 779B9A5428DDD51000117291 /* LeagueStats.app */;
@@ -186,6 +189,7 @@
 				774444CC28E1F5090014BEA5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				774444CF28EB04810014BEA5 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				774444D228EB06DD0014BEA5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				77891A9B28F43D7100B5A1EF /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 779B9A5528DDD51000117291 /* Products */;
 			projectDirPath = "";
@@ -476,6 +480,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		77891A9B28F43D7100B5A1EF /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -493,6 +505,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 774444D228EB06DD0014BEA5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		77891A9C28F43D7100B5A1EF /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 77891A9B28F43D7100B5A1EF /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

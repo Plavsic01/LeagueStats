@@ -17,3 +17,4 @@ struct SummonerJSON:Codable{
     let summonerLevel:Int
     
 }
+

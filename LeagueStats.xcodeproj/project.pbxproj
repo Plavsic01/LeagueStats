@@ -29,6 +29,7 @@
 		779B9A7128DDD7F000117291 /* SummonerJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A7028DDD7F000117291 /* SummonerJSON.swift */; };
 		779B9A7328DDD85F00117291 /* SummonerMenager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A7228DDD85F00117291 /* SummonerMenager.swift */; };
 		779B9A7528DE043300117291 /* SummonerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B9A7428DE043300117291 /* SummonerViewController.swift */; };
+		77B3A47928F827A700F39E2B /* NetworkConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B3A47828F827A700F39E2B /* NetworkConnectivity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		779B9A7028DDD7F000117291 /* SummonerJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerJSON.swift; sourceTree = "<group>"; };
 		779B9A7228DDD85F00117291 /* SummonerMenager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerMenager.swift; sourceTree = "<group>"; };
 		779B9A7428DE043300117291 /* SummonerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerViewController.swift; sourceTree = "<group>"; };
+		77B3A47828F827A700F39E2B /* NetworkConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectivity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				779B9A7228DDD85F00117291 /* SummonerMenager.swift */,
 				7715980928DF5B56005EBECB /* MatchManager.swift */,
 				7715980F28DF7232005EBECB /* Match.swift */,
+				77B3A47828F827A700F39E2B /* NetworkConnectivity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				774444D928EF00700014BEA5 /* MatchDetailsCustomCell.swift in Sources */,
+				77B3A47928F827A700F39E2B /* NetworkConnectivity.swift in Sources */,
 				7715981328DF7927005EBECB /* MatchCustomCell.swift in Sources */,
 				779B9A5C28DDD51000117291 /* ViewController.swift in Sources */,
 				774444D628EEFBCE0014BEA5 /* MatchDetailsViewController.swift in Sources */,

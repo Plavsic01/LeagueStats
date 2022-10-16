@@ -12,39 +12,46 @@ import SwiftyJSON
 struct MatchMananger {
 
     
+    
     func fetchMatches(summoner:Summoner,count:Int,completionHandler:@escaping(Match?,Int?) -> Void){
         
-        let url = URL(string: "\(K.fetchMatchesURL)\(summoner.puuid)/ids?start=0&count=\(count)&api_key=\(K.api_key)")!
-    
+        if NetworkConnectivity.shared.isReachable {
         
-        AF.request(url).validate().responseData { data in
-            if let safeData = data.data {
-                do {
-                    let json = try JSON(data: safeData)
+            let url = URL(string: "\(K.fetchMatchesURL)\(summoner.puuid)/ids?start=0&count=\(count)&api_key=\(K.api_key)")!
+                
+            
+            AF.request(url).validate().responseData { data in
+                
+                
+                
+                if let safeData = data.data {
+                    do {
+                        let json = try JSON(data: safeData)
+//                        print(json)
 
-                    for i in 0..<count {
-                        
-                        fetchMatch(summoner:summoner,matchId: json[i].rawString()!) { match,statusCode in
+                        for i in 0..<count {
                             
-                            if statusCode == nil {
-                                completionHandler(match!,nil)
-                            }else {
-                                completionHandler(nil,statusCode)
+                            fetchMatch(summoner:summoner,matchId: json[i].rawString()!) { match,statusCode in
+                                
+                                if statusCode == nil {
+                                    completionHandler(match!,nil)
+                                }else {
+                                    completionHandler(nil,statusCode)
+                                }
+                                
                             }
                             
                         }
+                    }catch {
+                        print(error.localizedDescription)
                         
                     }
-                }catch {
-                    print(error.localizedDescription)
                     
                 }
-                
             }
-        }
-        
-        
+    
     }
+}
     
     
     private func fetchMatch(summoner:Summoner,matchId:String,completionHandler:@escaping(Match?,Int?) -> Void){

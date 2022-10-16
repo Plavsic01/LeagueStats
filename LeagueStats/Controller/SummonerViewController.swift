@@ -36,6 +36,7 @@ class SummonerViewController: UIViewController {
         summonerManager.fetchSummonerData(summonerName: searchResult!)
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
+        
     
     }
     
@@ -46,7 +47,9 @@ class SummonerViewController: UIViewController {
             self.tableView.reloadData()
         }
         self.errorOccured = false
+
         summonerManager.fetchSummonerData(summonerName: searchResult!)
+                
         refreshControl.endRefreshing()
     }
     
@@ -149,10 +152,7 @@ extension SummonerViewController:SummonerMenagerDelegate {
         }
     }
 
-    func didUpdateData(_ summonerMenager: SummonerMenager, summoner: Summoner) {
-
-        
-        
+    func didUpdateData(_ summonerMenager: SummonerMenager,  summoner: Summoner) {
 
         // Fetch matches and append them into matchArray and reload table view
         
@@ -180,6 +180,16 @@ extension SummonerViewController:SummonerMenagerDelegate {
             }
             
         }
+        
+        summonerMenager.fetchRankedData(summonerId: summoner.id) { rankedArray in
+            print(rankedArray)
+            print(rankedArray.count)
+//            summoner.ranked = rankedArray
+            
+            print(rankedArray[0].queueType)
+            print(rankedArray[1].queueType)
+        }
+        
         
         // Fetch Summoner icon
         

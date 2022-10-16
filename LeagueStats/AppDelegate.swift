@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
+        NetworkConnectivity.shared.startListening()
+        
         return true
     }
 

@@ -15,6 +15,7 @@ struct K {
     static let fetchMatchesURL = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/" // get match list
     static let matchURL = "https://europe.api.riotgames.com/lol/match/v5/matches/" // get specific match
     static let summonerSpellURL = "https://ddragon.leagueoflegends.com/cdn/12.19.1/img/spell/"
+    static let summonerRankedURL = "https://eun1.api.riotgames.com/lol/league/v4/entries/by-summoner/"
     
     static let cellIdentifier = "matchCell"
     static let nibName = "MatchCustomCell"

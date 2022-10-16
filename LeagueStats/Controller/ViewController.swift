@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
@@ -30,6 +31,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         inputField.delegate = self
         
+
         if inputField.text!.isEmpty {
             searchButton.isUserInteractionEnabled = false
             searchButton.alpha = 0.5

@@ -100,8 +100,8 @@ struct SummonerMenager {
                             let queueType = json[i]["queueType"].rawString()!
                             let tier = json[i]["tier"].rawString()!
                             let rank = json[i]["rank"].rawString()!
-                            let wins =  json[i]["wins"].rawString()!
-                            let losses = json[i]["losses"].rawString()!
+                            let wins =  json[i]["wins"].rawValue as! Int
+                            let losses = json[i]["losses"].rawValue as! Int
                             let points = json[i]["leaguePoints"].rawString()!
                             
                             let summonerRanked = SummonerRanked(queueType: queueType, tier: tier, rank: rank, leaguePoints: points, wins: wins, losses: losses)

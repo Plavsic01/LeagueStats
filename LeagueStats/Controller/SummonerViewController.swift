@@ -14,6 +14,7 @@ class SummonerViewController: UIViewController {
     @IBOutlet weak var summonerLevelLabel: UILabel!
     @IBOutlet weak var summonerIcon: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var rankedDetails: UIButton!
     
     private var summonerManager = SummonerMenager()
     private var matchManager = MatchMananger()
@@ -23,6 +24,7 @@ class SummonerViewController: UIViewController {
     private var matchArray:[Match] = []
 
     var searchResult:String?
+    var summoner:Summoner?
     var matchDetails:Match?
     var errorOccured = false
     
@@ -36,6 +38,7 @@ class SummonerViewController: UIViewController {
         summonerManager.fetchSummonerData(summonerName: searchResult!)
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
+        rankedDetails.isHidden = true
         
     
     }
@@ -57,11 +60,18 @@ class SummonerViewController: UIViewController {
     // Sends specific match selected from table view to MatchDetailsViewController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destionationVC = segue.destination as? MatchDetailsViewController {
-            destionationVC.match = matchDetails
+        if segue.identifier == K.matchDetailsViewControllerSegue {
+            if let destionationVC = segue.destination as? MatchDetailsViewController {
+                destionationVC.match = matchDetails
+            }
+        }else if segue.identifier == K.rankedDetailsViewControllerSegue {
+            if let destionationVC = segue.destination as? RankedDetailsViewController {
+                destionationVC.summoner = summoner
+            }
         }
+        
     }
-    
+
 }
 
 // MARK: - TableViewDelegate and TableViewDataSource
@@ -88,21 +98,8 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
          */
         
         let sortedArray =  matchArray.sorted(by:{$0.gameCreation > $1.gameCreation})
-
-        
-        // Download and display item images from every match played
-        
-        // If match is won display background color -> Blue else -> Red
-        
-//        if sortedArray[indexPath.section].participant.win {
-//            cell.backgroundColor = UIColor(named: "Victory")
-//
-//        }else{
-//            cell.backgroundColor = UIColor(named: "Defeat")
-//        }
         
         // Fetch items with Kingfisher and display them into table view
-        
         cell.image1.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item0).png"))
         cell.image2.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item1).png"))
         cell.image3.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item2).png"))
@@ -112,7 +109,6 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
         cell.image7.kf.setImage(with: URL(string:"\(K.itemURL)\(sortedArray[indexPath.section].participant.item6).png"))
 
         // Fetch champion icon with Kingfisher and display into table view
-        
         cell.championIcon.kf.setImage(with: URL(string:"\(K.summonerIconURL)\(sortedArray[indexPath.section].participant.championName).png"))
 
         return cell
@@ -148,14 +144,16 @@ extension SummonerViewController:SummonerMenagerDelegate {
             self.summonerIcon.clipsToBounds = true
             self.summonerNameLabel.text = summoner.name
             self.summonerLevelLabel.text = "\(summoner.summonerLevel)"
+            self.rankedDetails.isHidden = false
             
         }
     }
 
     func didUpdateData(_ summonerMenager: SummonerMenager,  summoner: Summoner) {
 
-        // Fetch matches and append them into matchArray and reload table view
+        self.summoner = summoner
         
+        // Fetch matches and append them into matchArray and reload table view
         matchManager.fetchMatches(summoner:summoner,count: 20) { [weak self] match,statusCode in
             
             if statusCode == nil {
@@ -167,37 +165,26 @@ extension SummonerViewController:SummonerMenagerDelegate {
                 
                 // If statement is here because we don't want repetition of same Alert Controller
                 // This closure loops 20 times but only once shows alert
-                
                 if !self!.errorOccured {
+
                     let alert = UIAlertController(title: "Error \(statusCode!)", message: "Error occured, Please try in few minutes.", preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.destructive))
                     self?.present(alert, animated: true, completion: nil)
                     
                     self!.errorOccured = true
                 }
-                
-                    
+        
             }
             
         }
         
-        summonerMenager.fetchRankedData(summonerId: summoner.id) { rankedArray in
-            print(rankedArray)
-            print(rankedArray.count)
-//            summoner.ranked = rankedArray
-            
-            print(rankedArray[0].queueType)
-            print(rankedArray[1].queueType)
-        }
-        
-        
         // Fetch Summoner icon
-        
         fetchSummonerIcon(summoner: summoner)
         
     }
         
-        
+   
+
     
     func didGetError(_ summonerMenager: SummonerMenager, error: Error) {
         print(error) // this is for now

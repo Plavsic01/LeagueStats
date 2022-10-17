@@ -20,24 +20,10 @@ struct Summoner {
         return "https://ddragon.leagueoflegends.com/cdn/12.18.1/img/profileicon/\(profileIconId).png"
     }
     let summonerLevel:Int
-//    var ranked:[SummonerRanked]?
-    
-    
-//    init(id:String,accountId:String,puuid:String,name:String,profileIconId:Int,summonerLevel:Int){
-//        self.id = id
-//        self.accountId = accountId
-//        self.puuid = puuid
-//        self.name = name
-//        self.profileIconId = profileIconId
-//        self.summonerLevel = summonerLevel
-//    }
+
         
 }
 
-
-// neki princip enuma za koji rank koju sliku staviti
-
-// vrv ovo sve treba biti optional zato sto je moguce da ne postoji
 
 struct SummonerRanked {
     
@@ -45,16 +31,63 @@ struct SummonerRanked {
     let tier:String
     let rank:String
     let leaguePoints:String
-    let wins:String
-    let losses:String
+    let wins:Int
+    let losses:Int
     
-//    init(queueType:String,tier:String,rank:String,leaguePoints:String,wins:String,losses:String){
-//        self.queueType = queueType
-//        self.tier = tier
-//        self.rank = rank
-//        self.leaguePoints = leaguePoints
-//        self.wins = wins
-//        self.losses = losses
-//    }
+    var winRate:String {
+        var
+        winRate = Double(wins) / Double((wins+losses))
+        winRate *= 100
+        return "Win Rate \(Int(winRate.rounded()) )%"
+    }
     
+    var winsAndLosses:String {
+        return "\(wins)W \(losses)L"
+    }
+    var soloQRank:String {
+        return rankImg(queueType: queueType, tier: tier)
+    }
+    
+    var flexRank:String {
+        return rankImg(queueType: queueType, tier: tier)
+    }
+    
+    
+    private func rankImg(queueType:String,tier:String) -> String {
+        
+        var imgName:String?
+        
+        switch(tier) {
+        case "IRON":
+            imgName = "Emblem_Iron"
+        case "BRONZE":
+            imgName = "Emblem_Bronze"
+        case "SILVER":
+            imgName = "Emblem_Silver"
+        case "GOLD":
+            imgName = "Emblem_Gold"
+        case "PLATINUM":
+            imgName = "Emblem_Platinum"
+        case "DIAMOND":
+            imgName = "Emblem_Diamond"
+        case "MASTER":
+            imgName = "Emblem_Master"
+        case "GRANDMASTER":
+            imgName = "Emblem_Grandmaster"
+        case "CHALLENGER":
+            imgName = "Emblem_Challenger"
+        default:
+            imgName = ""
+        }
+        
+        if queueType == "RANKED_SOLO_5x5" {
+            return imgName!
+            
+        } else if queueType == "RANKED_FLEX_SR" {
+            return imgName!
+        }
+        
+        return ""
+    }
+
 }

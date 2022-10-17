@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		770672A128FC562E00BB0C70 /* RankedDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770672A028FC562D00BB0C70 /* RankedDetailsViewController.swift */; };
 		7715980A28DF5B56005EBECB /* MatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7715980928DF5B56005EBECB /* MatchManager.swift */; };
 		7715980C28DF5CAB005EBECB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7715980B28DF5CAB005EBECB /* Constants.swift */; };
 		7715981028DF7232005EBECB /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7715980F28DF7232005EBECB /* Match.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		770672A028FC562D00BB0C70 /* RankedDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedDetailsViewController.swift; sourceTree = "<group>"; };
 		7715980928DF5B56005EBECB /* MatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManager.swift; sourceTree = "<group>"; };
 		7715980B28DF5CAB005EBECB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7715980F28DF7232005EBECB /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				779B9A5B28DDD51000117291 /* ViewController.swift */,
 				779B9A7428DE043300117291 /* SummonerViewController.swift */,
 				774444D528EEFBCE0014BEA5 /* MatchDetailsViewController.swift */,
+				770672A028FC562D00BB0C70 /* RankedDetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				779B9A5A28DDD51000117291 /* SceneDelegate.swift in Sources */,
 				7715980A28DF5B56005EBECB /* MatchManager.swift in Sources */,
 				779B9A6F28DDD5BD00117291 /* Summoner.swift in Sources */,
+				770672A128FC562E00BB0C70 /* RankedDetailsViewController.swift in Sources */,
 				7715981028DF7232005EBECB /* Match.swift in Sources */,
 				779B9A7328DDD85F00117291 /* SummonerMenager.swift in Sources */,
 				7715980C28DF5CAB005EBECB /* Constants.swift in Sources */,

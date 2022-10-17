@@ -76,7 +76,6 @@ extension ViewController:UITextFieldDelegate {
     
     // finish this
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("returned")
         return true
     }
     

@@ -9,6 +9,11 @@ import UIKit
 
 class RankedDetailsViewController: UIViewController {
     
+    
+    
+    @IBOutlet weak var rankedCollectionView: UICollectionView!
+    
+    
     @IBOutlet weak var soloQIcon: UIImageView!
     @IBOutlet weak var flexIcon: UIImageView!
     @IBOutlet weak var soloRankLabel: UILabel!
@@ -22,52 +27,44 @@ class RankedDetailsViewController: UIViewController {
     
     var summonerManager = SummonerMenager()
     var summoner:Summoner?
+    var rankedDetails:[SummonerRanked] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showRankedData()
+        rankedCollectionView.delegate = self
+        rankedCollectionView.dataSource = self
+        rankedCollectionView.register(UINib(nibName: K.rankedDetailsNibName, bundle: nil), forCellWithReuseIdentifier: K.rankedDetailsCellIdentifier)
+
+        rankedData()
     }
- 
-    func showRankedData(){
+    
+  
+    func rankedData(){
         if let sumSafe = summoner {
             summonerManager.fetchRankedData(summonerId: sumSafe.id) { rankedDetails in
                 
-                if !rankedDetails.isEmpty && rankedDetails.count == 1 {
+                if rankedDetails.isEmpty {
+                    self.rankedDetails.append(SummonerRanked(queueType: "RANKED_SOLO_5x5", tier:"Unranked", rank: "", leaguePoints: "0", wins:0, losses: 0))
+                    self.rankedDetails.append(SummonerRanked(queueType: "RANKED_FLEX_SE", tier: "Unranked", rank: "", leaguePoints: "0", wins: 0, losses: 0))
                     
-                    if rankedDetails[0].queueType == "RANKED_SOLO_5x5" {
-                        DispatchQueue.main.async {
-                            self.soloQIcon.image = UIImage(named: rankedDetails[0].soloQRank)
-                            self.soloRankLabel.text = rankedDetails[0].tier + " " + rankedDetails[0].rank
-                            self.soloLpLabel.text = "\(rankedDetails[0].leaguePoints) LP"
-                            self.soloWinsLossesLabel.text = rankedDetails[0].winsAndLosses
-                            self.soloWinRate.text = rankedDetails[0].winRate
-                        }
-                        
-                    }else if rankedDetails[0].queueType == "RANKED_FLEX_SR" {
-                        DispatchQueue.main.async {
-                            self.flexIcon.image = UIImage(named: rankedDetails[0].flexRank)
-                            self.flexRankLabel.text = rankedDetails[0].tier + " " + rankedDetails[0].rank
-                            self.flexLpLabel.text = "\(rankedDetails[0].leaguePoints) LP"
-                            self.flexWinsLossesLabel.text = rankedDetails[0].winsAndLosses
-                            self.flexWinRate.text = rankedDetails[0].winRate
-                        }
-
+                }else if rankedDetails.count == 1 {
+                    self.rankedDetails = rankedDetails
+                    
+                    if self.rankedDetails[0].queueType == "RANKED_SOLO_5x5"{
+                        self.rankedDetails.append(SummonerRanked(queueType: "RANKED_FLEX_SE", tier: "Unranked", rank: "", leaguePoints: "0", wins: 0, losses: 0))
+                    }else {
+                        self.rankedDetails.append(SummonerRanked(queueType: "RANKED_SOLO_5x5", tier:"Unranked", rank: "", leaguePoints: "0", wins:0, losses: 0))
                     }
-                } else if rankedDetails.count == 2 {
-                    DispatchQueue.main.async {
-                        self.soloQIcon.image = UIImage(named: rankedDetails[0].soloQRank)
-                        self.soloRankLabel.text = rankedDetails[0].tier + " " + rankedDetails[0].rank
-                        self.soloLpLabel.text = "\(rankedDetails[0].leaguePoints) LP"
-                        self.soloWinsLossesLabel.text = rankedDetails[0].winsAndLosses
-                        self.soloWinRate.text = rankedDetails[0].winRate
-                        
-                        self.flexIcon.image = UIImage(named: rankedDetails[1].flexRank)
-                        self.flexRankLabel.text = rankedDetails[1].tier + " " + rankedDetails[1].rank
-                        self.flexLpLabel.text = "\(rankedDetails[1].leaguePoints) LP"
-                        self.flexWinsLossesLabel.text = rankedDetails[1].winsAndLosses
-                        self.flexWinRate.text = rankedDetails[1].winRate
-                    }
+                }else {
+                   
+                    self.rankedDetails = rankedDetails
+                    
+                }
+                
+                DispatchQueue.main.async {
+                    self.rankedCollectionView.reloadData()
+                }
                     
                 }
                 
@@ -76,7 +73,35 @@ class RankedDetailsViewController: UIViewController {
         
     }
     
+
+extension RankedDetailsViewController: UICollectionViewDelegate {
     
 }
+
+
+extension RankedDetailsViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return rankedDetails.count
+    
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.rankedDetailsCellIdentifier, for: indexPath) as! RankedDetailsCollectionViewCell
+        
+        
+        cell.rankedIcon.image = UIImage(named: rankedDetails[indexPath.row].rankImgName)
+        cell.rankedType.text = rankedDetails[indexPath.row].queueTypeFormatted
+        cell.rankedTier.text = "\(rankedDetails[indexPath.row].tier) \(rankedDetails[indexPath.row].rank)"
+        cell.rankedPoints.text = rankedDetails[indexPath.row].leaguePointsFormatted
+        cell.rankedwinsLosses.text = "\(rankedDetails[indexPath.row].wins)W \(rankedDetails[indexPath.row].losses)L"
+        cell.rankedWinRate.text = rankedDetails[indexPath.row].winRate
+            
+        
+        return cell
+    }
+    
+    
+}
+
 
 

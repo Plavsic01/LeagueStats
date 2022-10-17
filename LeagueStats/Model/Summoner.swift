@@ -24,7 +24,6 @@ struct Summoner {
         
 }
 
-
 struct SummonerRanked {
     
     let queueType:String
@@ -34,21 +33,35 @@ struct SummonerRanked {
     let wins:Int
     let losses:Int
     
+    
+    var queueTypeFormatted:String {
+        if queueType == "RANKED_SOLO_5x5" {
+            return "Ranked Solo"
+        }
+        return "Ranked Flex"
+        
+    }
+    
+    var leaguePointsFormatted:String {
+        return "\(leaguePoints) LP"
+    }
+    
+    
     var winRate:String {
-        var
-        winRate = Double(wins) / Double((wins+losses))
-        winRate *= 100
-        return "Win Rate \(Int(winRate.rounded()) )%"
+        if wins != 0 || losses != 0 {
+            var winRate = Double(wins) / Double((wins+losses))
+            winRate *= 100
+            return "Win Rate \(Int(winRate.rounded()) )%"
+        }
+        
+        return "Win Rate 0%"
+        
     }
     
     var winsAndLosses:String {
         return "\(wins)W \(losses)L"
     }
-    var soloQRank:String {
-        return rankImg(queueType: queueType, tier: tier)
-    }
-    
-    var flexRank:String {
+    var rankImgName:String {
         return rankImg(queueType: queueType, tier: tier)
     }
     
@@ -77,17 +90,11 @@ struct SummonerRanked {
         case "CHALLENGER":
             imgName = "Emblem_Challenger"
         default:
-            imgName = ""
+            imgName = "Emblem_Unranked"
         }
         
-        if queueType == "RANKED_SOLO_5x5" {
-            return imgName!
-            
-        } else if queueType == "RANKED_FLEX_SR" {
-            return imgName!
-        }
         
-        return ""
+        return imgName!
     }
 
 }

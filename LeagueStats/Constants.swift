@@ -27,6 +27,9 @@ struct K {
     static let matchDetailsViewControllerSegue = "showDetails"
     static let rankedDetailsViewControllerSegue = "showRankedDetails"
     
+    static let rankedDetailsCellIdentifier = "rankedDetailsCell"
+    static let rankedDetailsNibName = "RankedDetailsCollectionViewCell"
+    
     static let itemURL = "https://ddragon.leagueoflegends.com/cdn/12.18.1/img/item/"
     static let summonerIconURL = "https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/"
     

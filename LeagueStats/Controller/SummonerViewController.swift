@@ -44,7 +44,7 @@ class SummonerViewController: UIViewController {
     }
     
     @objc func refresh(_ sender:AnyObject) {
-
+        
         DispatchQueue.main.async {
             self.matchArray.removeAll()
             self.tableView.reloadData()
@@ -135,7 +135,6 @@ extension SummonerViewController:UITableViewDelegate,UITableViewDataSource {
 
 extension SummonerViewController:SummonerMenagerDelegate {
     
-    
 
     private func fetchSummonerIcon(summoner:Summoner){
         DispatchQueue.main.async {
@@ -165,13 +164,24 @@ extension SummonerViewController:SummonerMenagerDelegate {
                 
                 // If statement is here because we don't want repetition of same Alert Controller
                 // This closure loops 20 times but only once shows alert
+                
                 if !self!.errorOccured {
-
-                    let alert = UIAlertController(title: "Error \(statusCode!)", message: "Error occured, Please try in few minutes.", preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.destructive))
-                    self?.present(alert, animated: true, completion: nil)
                     
-                    self!.errorOccured = true
+                    // technically statusCode is 200 because status is OK but json returns 0 values
+                    // because there are no matches played in a while.
+                    
+                    if statusCode == 404 {
+                        self!.tableView.isHidden = true
+                    }else {
+                        let alert = UIAlertController(title: "Error \(statusCode!)", message: "Error occured, Please try in few minutes.", preferredStyle: UIAlertController.Style.alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.destructive))
+                        self?.present(alert, animated: true, completion: nil)
+                        
+                        self!.errorOccured = true
+                    }
+                    
+                    
                 }
         
             }
@@ -182,12 +192,23 @@ extension SummonerViewController:SummonerMenagerDelegate {
         fetchSummonerIcon(summoner: summoner)
         
     }
-        
-   
-
+      
     
-    func didGetError(_ summonerMenager: SummonerMenager, error: Error) {
-        print(error) // this is for now
+    func didGetError(_ summonerMenager: SummonerMenager, error: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { alertAction in
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
+            
+        }
+        
+        
+        
+        
     }
     
 }

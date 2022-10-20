@@ -64,16 +64,22 @@ extension MatchDetailsViewController:UITableViewDelegate {
         
         
         let teamLabel = UILabel()
-        teamLabel.font = UIFont(name: "Helvetica Neue", size: 23)
+        let gameDurationLabel = UILabel()
+        
+        teamLabel.font = UIFont(name: "Helvetica Neue", size: 21)
+        gameDurationLabel.font = UIFont(name: "Helvetica Neue", size: 19)
         
         teamLabel.frame = CGRect.init(x: 10, y: 30, width: headerView.frame.width - 10, height: 25)
+        gameDurationLabel.frame = CGRect.init(x: 10, y: 60, width: headerView.frame.width - 10, height: 25)
         if section == 0 {
             
             if team1Won {
                 teamLabel.text = "TEAM 1 - Victory"
+                gameDurationLabel.text = "Game Duration: \(gameDuration)"
                 headerView.backgroundColor = UIColor(named: "Victory")
             }else {
                 teamLabel.text = "TEAM 1 - Defeat"
+                gameDurationLabel.text = "Game Duration: \(gameDuration)"
                 headerView.backgroundColor = UIColor(named: "Defeat")
             }
             
@@ -88,6 +94,7 @@ extension MatchDetailsViewController:UITableViewDelegate {
             
         }
         
+        headerView.addSubview(gameDurationLabel)
         headerView.addSubview(teamLabel)
 
         return headerView

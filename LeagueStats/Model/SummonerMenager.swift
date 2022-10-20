@@ -11,7 +11,7 @@ import SwiftyJSON
 
 protocol SummonerMenagerDelegate:AnyObject {
     func didUpdateData(_ summonerMenager:SummonerMenager,summoner:Summoner)
-    func didGetError(_ summonerMenager:SummonerMenager,error:Error)
+    func didGetError(_ summonerMenager:SummonerMenager,error:String)
 }
 
 struct SummonerMenager {
@@ -23,10 +23,15 @@ struct SummonerMenager {
     
     func fetchSummonerData(summonerName:String) {
         
+        var summoner = summonerName
+        
+        if summonerName.contains(" "){
+            summoner = summonerName.replacingOccurrences(of: " ", with: "%20")
+        }
             
         if NetworkConnectivity.shared.isReachable {
         
-            let urlString = "\(K.summonerURL)/\(summonerName)?api_key=\(K.api_key)"
+            let urlString = "\(K.summonerURL)/\(summoner)?api_key=\(K.api_key)"
 
             if let url = URL(string: urlString) {
                 
@@ -34,16 +39,20 @@ struct SummonerMenager {
                 
                 let request = URLRequest(url: url)
                 
-                let dataTask = session.dataTask(with: request) { data, _, error in
+                let dataTask = session.dataTask(with: request) { data, _ ,error in
                     if let safeData = data {
                         
-                        let currentSummoner = decodeJSON(jsonData: safeData)!
-
-                        delegate?.didUpdateData(self, summoner: currentSummoner)
+                        if let currentSummoner = decodeJSON(jsonData: safeData) {
+                            
+                            delegate?.didUpdateData(self, summoner: currentSummoner)
+                            
+                        } else {
+                            delegate?.didGetError(self, error:"User not found!")
+                        }
                         
                     }else {
                         
-                        delegate?.didGetError(self, error: error!)
+                        delegate?.didGetError(self, error: error!.localizedDescription)
                         
                     }
                 }
@@ -63,7 +72,7 @@ struct SummonerMenager {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(SummonerJSON.self, from: jsonData)
-
+            
             return Summoner(id:decodedData.id, accountId:decodedData.accountId, puuid: decodedData.puuid, name: decodedData.name, profileIconId: decodedData.profileIconId, summonerLevel: decodedData.summonerLevel)
             
         }catch {

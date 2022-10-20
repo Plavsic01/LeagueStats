@@ -21,7 +21,7 @@ class NetworkConnectivity {
     
     func startListening(){
         reachabilityManager?.startListening(onUpdatePerforming: { status in
-            switch status {
+            switch(status) {
             case .notReachable:
                 print("not reachable")
                 self.isReachable = false

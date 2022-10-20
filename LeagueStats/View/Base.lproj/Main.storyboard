@@ -111,6 +111,12 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are no results recorded." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvZ-Ap-DSH">
+                                <rect key="frame" x="92.5" y="438" width="229.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LfO-e5-uAI" userLabel="Match Table View">
                                 <rect key="frame" x="0.0" y="336" width="414" height="526"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -131,8 +137,10 @@
                         <constraints>
                             <constraint firstItem="LfO-e5-uAI" firstAttribute="leading" secondItem="jVl-rG-I8V" secondAttribute="leading" id="Fx6-aE-LeF"/>
                             <constraint firstItem="MIr-cD-18K" firstAttribute="top" secondItem="jVl-rG-I8V" secondAttribute="top" constant="50" id="IQe-fq-zeF"/>
+                            <constraint firstItem="xvZ-Ap-DSH" firstAttribute="centerX" secondItem="NOA-aw-oKO" secondAttribute="centerX" id="K7z-uD-5es"/>
                             <constraint firstItem="jVl-rG-I8V" firstAttribute="trailing" secondItem="MIr-cD-18K" secondAttribute="trailing" priority="999" constant="20" id="OlC-D0-A3d"/>
                             <constraint firstItem="LfO-e5-uAI" firstAttribute="centerX" secondItem="MIr-cD-18K" secondAttribute="centerX" id="Uan-Rl-dSv"/>
+                            <constraint firstItem="xvZ-Ap-DSH" firstAttribute="centerY" secondItem="NOA-aw-oKO" secondAttribute="centerY" id="Y82-Tm-vav"/>
                             <constraint firstItem="LfO-e5-uAI" firstAttribute="bottom" secondItem="jVl-rG-I8V" secondAttribute="bottom" id="lua-h8-G4a"/>
                             <constraint firstItem="MIr-cD-18K" firstAttribute="leading" secondItem="jVl-rG-I8V" secondAttribute="leading" constant="20" id="nC1-G9-219"/>
                             <constraint firstItem="LfO-e5-uAI" firstAttribute="top" secondItem="MIr-cD-18K" secondAttribute="bottom" priority="999" constant="41" id="zUt-sI-bu3"/>

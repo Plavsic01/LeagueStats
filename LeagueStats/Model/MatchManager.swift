@@ -22,26 +22,29 @@ struct MatchMananger {
             
             AF.request(url).validate().responseData { data in
                 
-                
-                
-                if let safeData = data.data {
+             if let safeData = data.data {
                     do {
                         let json = try JSON(data: safeData)
-//                        print(json)
-
-                        for i in 0..<count {
+                        
+                        if (data.response!.statusCode == 200 && json.isEmpty) {
+                            // 404 because json returns nothing. (empty array)
+                            completionHandler(nil,404)
                             
-                            fetchMatch(summoner:summoner,matchId: json[i].rawString()!) { match,statusCode in
-                                
-                                if statusCode == nil {
-                                    completionHandler(match!,nil)
-                                }else {
-                                    completionHandler(nil,statusCode)
+                        } else {
+                            for i in 0..<count {
+                                fetchMatch(summoner:summoner,matchId: json[i].rawString()!) { match,statusCode in
+                                    if statusCode == nil {
+                                        completionHandler(match!,nil)
+                                    }else {
+                                        completionHandler(nil,statusCode)
+                                    }
+                                    
                                 }
                                 
                             }
-                            
                         }
+                        
+                        
                     }catch {
                         print(error.localizedDescription)
                         
@@ -73,7 +76,8 @@ struct MatchMananger {
                         let gameCreation = json["info"]["gameCreation"].rawValue as! Int
                         let gameDuration = json["info"]["gameDuration"].rawValue as! Int
                         let gameStartTimestamp = json["info"]["gameStartTimestamp"].rawValue as! Int
-                        let gameEndTimestamp = json["info"]["gameEndTimestamp"].rawValue as! Int
+                        // before patch 11.20 this field (gameEndTimestamp) did not exist so set 0 as value if nil
+                        let gameEndTimestamp = json["info"]["gameEndTimestamp"].rawValue as? Int ?? 0
                         
                         for participant in json["info"]["participants"] {
                             
